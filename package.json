@@ -36,7 +36,6 @@
     "vue-tsc": "^2.2.10"
   },
   "name": "thonburi",
-  "packageManager": "pnpm@9.2.0+sha1.886364ebd6dae009284bebc56ed4296bb6dd557a",
   "prettier": {
     "arrowParens": "avoid",
     "bracketSpacing": true,
