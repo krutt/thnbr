@@ -1,0 +1,19 @@
+# environment variable
+**/.env
+
+
+# node
+dist
+node_modules
+tsconfig.tsbuildinfo
+vite.config.ts.**.mjs
+
+
+# macos
+**/.DS_Store
+
+
+# workspace settings
+.idea
+.ignore
+.vscode

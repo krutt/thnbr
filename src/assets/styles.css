@@ -1,0 +1,142 @@
+/* ~~/src/assets/main.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Wong';
+  size-adjust: 200%;
+  src: url(./wong.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Ubuntu Bold Italic';
+  font-style: italic;
+  font-weight: bold;
+  src: url(./ubuntu-bold-italic.ttf) format('truetype');
+}
+
+@layer base {
+  html {
+    --color-black: #1b1b1e;
+    --color-white: #f9fafa;
+
+    --vp-code-font-size: 0.875em;
+    --vp-code-line-height: 1.7;
+    --vp-font-family-mono: ui-monospace, 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono',
+      'Courier New', monospace;
+
+    --vp-c-brand-1: #3451b2;
+    --vp-c-brand-2: #3a5ccc;
+    --vp-code-block-bg: #f6f6f7;
+    --vp-code-block-divider-color: #e2e2e3;
+    --vp-code-copy-code-bg: #f6f6f7;
+    --vp-code-copy-code-border-color: ##e2e2e3;
+    --vp-code-copy-code-hover-bg: #ffffff;
+    --vp-code-copy-code-hover-border-color: #e2e2e3;
+    --vp-code-line-highlight-color: rgba(142, 150, 170, 0.14);
+    --vp-code-line-number-color: #67676c;
+  }
+  html[data-theme='light'] {
+    --color-primary: #567965;
+    --color-secondary: #d2757c;
+    --color-tertiary: #69a4ce;
+
+    --vp-c-brand-1: #3451b2;
+    --vp-c-brand-2: #3a5ccc;
+    --vp-code-block-bg: #f6f6f7;
+    --vp-code-block-divider-color: #e2e2e3;
+    --vp-code-copy-code-bg: #f6f6f7;
+    --vp-code-copy-code-border-color: ##e2e2e3;
+    --vp-code-copy-code-hover-bg: #ffffff;
+    --vp-code-copy-code-hover-border-color: #e2e2e3;
+    --vp-code-line-highlight-color: rgba(142, 150, 170, 0.14);
+    --vp-code-line-number-color: #67676c;
+
+    background: #f9fafa;
+    color: #1b1b1e;
+  }
+  html[data-theme='dark'] {
+    --color-primary: #f9cefd;
+    --color-secondary: #b6fbb1;
+    --color-tertiary: #fbf5a8;
+
+    --vp-c-brand-1: #a8b1ff;
+    --vp-c-brand-2: #5c73e7;
+    --vp-code-block-bg: #161618;
+    --vp-code-block-divider-color: #000000;
+    --vp-code-copy-code-bg: #202127;
+    --vp-code-copy-code-border-color: #2e2e32;
+    --vp-code-copy-code-hover-bg: #1b1b1f;
+    --vp-code-copy-code-hover-border-color: #2e2e32;
+    --vp-code-line-highlight-color: rgba(101, 117, 133, 0.16);
+    --vp-code-line-number-color: #98989f;
+
+    background: #1b1b1e;
+    color: #f9fafa;
+  }
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 224 71.4% 4.1%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 71.4% 4.1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71.4% 4.1%;
+    --primary: 220.9 39.3% 11%;
+    --primary-foreground: 210 20% 98%;
+    --secondary: 220 14.3% 95.9%;
+    --secondary-foreground: 220.9 39.3% 11%;
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
+    --accent: 220 14.3% 95.9%;
+    --accent-foreground: 220.9 39.3% 11%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 224 71.4% 4.1%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 224 71.4% 4.1%;
+    --foreground: 210 20% 98%;
+    --card: 224 71.4% 4.1%;
+    --card-foreground: 210 20% 98%;
+    --popover: 224 71.4% 4.1%;
+    --popover-foreground: 210 20% 98%;
+    --primary: 210 20% 98%;
+    --primary-foreground: 220.9 39.3% 11%;
+    --secondary: 215 27.9% 16.9%;
+    --secondary-foreground: 210 20% 98%;
+    --muted: 215 27.9% 16.9%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+    --accent: 215 27.9% 16.9%;
+    --accent-foreground: 210 20% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 215 27.9% 16.9%;
+    --input: 215 27.9% 16.9%;
+    --ring: 216 12.2% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
