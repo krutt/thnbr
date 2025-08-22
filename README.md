@@ -1,4 +1,4 @@
-# Thonburi
+# thnbr
 
 [![Bitcoin-only](https://img.shields.io/badge/bitcoin-only-FF9900?logo=bitcoin)](https://twentyone.world)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/aekasitt/thonburi/blob/master/LICENSE)
