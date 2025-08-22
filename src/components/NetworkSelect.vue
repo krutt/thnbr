@@ -37,7 +37,7 @@ onMounted(async () => (!!selectedNetwork.value ? selectNetwork(selectedNetwork.v
         <MutinyNet class="h-full w-full fill-current" v-if="selectedNetwork == 'signet'" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuLabel>Network</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem @click.prevent="selectNetwork('mainnet')" :disabled="true">
           <Bitcoin class="h-8 w-8 mr-2" />

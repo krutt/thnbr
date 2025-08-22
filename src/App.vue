@@ -13,7 +13,6 @@ import Krutt from '@/assets/krutt.svg'
 // let alby = useAlby()
 // let { connectWallet }  = alby
 // let userAddress = storeToRefs(alby).address
-
 </script>
 <template>
   <div class="bg-white dark:bg-gray-950 flex flex-col min-w-screen">
@@ -24,7 +23,8 @@ import Krutt from '@/assets/krutt.svg'
         <div class="flex items-center justify-between h-full gap-2 px-8 mx-auto max-w-7xl">
           <a href="/" class="flex items-center">
             <Krutt />
-            <span class="font-extrabold font-wong self-center text-xl whitespace-nowrap dark:text-white"
+            <span
+              class="font-extrabold font-wong self-center text-xl whitespace-nowrap dark:text-white"
               >Thonburi</span
             >
           </a>
