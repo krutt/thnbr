@@ -39,7 +39,7 @@ let editor
 onMounted(() => {
   // initialize one worker per session shared by all editor instances
   if (!worker) {
-    worker = new Worker(new URL('@/workers/buidlvm.ts', import.meta.url), { type: 'module' })
+    worker = new Worker(new URL('@/workers/interpreter.ts', import.meta.url), { type: 'module' })
     let inputBuffer = new SharedArrayBuffer(1024)
     inputData = new Uint8Array(inputBuffer)
     let waitBuffer = new SharedArrayBuffer(4)
