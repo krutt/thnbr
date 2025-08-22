@@ -21,7 +21,7 @@ import Krutt from '@/assets/krutt.svg'
         class="bg-white dark:bg-gray-950 fixed inset-x-0 top-0 z-[10] h-fit border-b border-slate-900 py-2"
       >
         <div class="flex items-center justify-between h-full gap-2 px-8 mx-auto max-w-7xl">
-          <a href="/" class="flex items-center">
+          <a href="/thonburi" class="flex items-center">
             <Krutt />
             <span
               class="font-extrabold font-wong self-center text-xl whitespace-nowrap dark:text-white"
