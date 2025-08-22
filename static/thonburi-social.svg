@@ -117,25 +117,22 @@
     y='8rem'
     />
   <text
+    id='THNBR'
     font-family='Wong'
-    font-size='16rem'
-    letter-spacing='4rem'
+    font-size='14rem'
+    font-weight='700'
+    letter-spacing='2rem'
     text-anchor='left'
-    y='12rem'>
-    <tspan
-      dy='0rem'
-      x='32rem'
-      >
-      Thon
-    </tspan>
-    <tspan
-      dy='8rem'
-      x='32rem'
-      
-      >
-      Buri
-    </tspan>
+    x='32rem'
+    y='16rem'>
+    THNBR
   </text>
+  <use
+    href='#THNBR'
+    opacity='.6'
+    x='.6rem'
+    y='.6rem'
+    />
   <text
     font-family='Courier'
     font-size='2rem'

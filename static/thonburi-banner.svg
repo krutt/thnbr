@@ -84,15 +84,22 @@
     x='2rem'
     y='2rem'
     />
-  <text
+  <text id='THNBR'
     font-family='Wong'
-    font-size='10rem'
-    letter-spacing='2.5rem'
+    font-size='12rem'
+    font-weight='700'
+    letter-spacing='2rem'
     text-anchor='left'
     x='16rem'
     y='6rem'>
     ธนบุรี
   </text>
+  <use
+    href='#THNBR'
+    opacity='.6'
+    x='.3rem'
+    y='.3rem'
+    />
   <text
     font-family='Arial'
     font-size='1.2rem'
