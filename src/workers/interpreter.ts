@@ -70,6 +70,12 @@ def pbkdf2_hmac(hash_name, password, salt, iterations, dklen=None):
 hashlib.pbkdf2_hmac = pbkdf2_hmac
 
 
+# NOTE: shim opcodes from buidl.op.OP_CODE_NAMES
+from buidl.op import OP_CODE_NAMES
+OP_CODES: dict[str, int] = {value: key for key, value in OP_CODE_NAMES.items()}
+globals().update(OP_CODES)
+
+
 module: Module = parse("""${code}""")
 try:
   next(filter(lambda node: isinstance(node, Name) and node.id == 'print', walk(module)))
