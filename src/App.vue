@@ -25,7 +25,7 @@ import Krutt from '@/assets/krutt.svg'
             <Krutt />
             <span
               class="font-extrabold font-wong self-center text-xl whitespace-nowrap dark:text-white"
-              >Thonburi</span
+              >THNBR</span
             >
           </a>
           <div class="flex items-center">
