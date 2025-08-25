@@ -162,17 +162,15 @@ from buidl.helper import decode_base58, sha256, hash160
 preimage_secret = b"super secret code"
 preimage = sha256(preimage_secret)
 
-# sender private keys from WIF
+# create private keys from WIF
 sender_wif = "cUZLbjpNRAAuu5sV8e8ocwMqAYDtdxY2EXCPyjvyeGATzCnCCaMK"
 sender_decoded = decode_base58(sender_wif)
 seckey_sender = PrivateKey(int.from_bytes(sender_decoded[1:], "big"))
-pubkey_sender = seckey_sender.address(network="regtest", witness_type='p2wpkh').pub
-
-# recipient private key from WIF
+pubkey_sender = seckey_sender.point.sec()
 recipient_wif = "cVhjB76GwuZiva15i88Hwbgc1ZZB6KFMUAjAgiauD1mpugQDVGTc"
 recipient_decoded = decode_base58(recipient_wif)
 seckey_recipient = PrivateKey(int.from_bytes(recipient_decoded[1:], "big"))
-pub_key reciepient = seckey_recipient.address(network="regtest", witness_type='p2wpkh').pub
+pubkey_recipient = seckey_recipient.point.sec()
 
 # construct redeem script
 redeem_script = Script([
@@ -201,7 +199,7 @@ redeem_script_hash = sha256(redeem_script.serialize())
 # P2WSH scriptPubKey: OP_0 <redeem_script_hash>
 script_pubkey = Script([OP_0, redeem_script_hash])
 internal_pubkey = S256Point.parse_xonly(unhexlify("50929b74c1a04954b78b4b6035e97a5e078a5a0f28ec96d547bfee9ace803ac0"))
-address = internal_pubkey.p2tr_address(script_pubkey.serialize(), network="regtest")
+address = internal_pubkey.p2tr_address(script_pubkey.serialize(), network="regtest")``
 ```
 
 ### Acknowledgements
