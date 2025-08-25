@@ -119,17 +119,17 @@
   <text
     id='THNBR'
     font-family='Wong'
-    font-size='14rem'
+    font-size='18rem'
     font-weight='700'
-    letter-spacing='2rem'
+    letter-spacing='.6rem'
     text-anchor='left'
     x='32rem'
-    y='16rem'>
+    y='18rem'>
     THNBR
   </text>
   <use
     href='#THNBR'
-    opacity='.6'
+    opacity='.4'
     x='.6rem'
     y='.6rem'
     />
