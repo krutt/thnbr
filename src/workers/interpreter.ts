@@ -2,12 +2,17 @@
 
 // imports
 import { loadPyodide } from 'pyodide'
+import { ripemd160 } from '@noble/hashes/legacy.js';
+
 const pyodide = await loadPyodide({
   indexURL: import.meta.env.BASE_URL,
   stderr: () => console.error,
   stdout: () => console.log,
 })
 await pyodide.loadPackage('/thonburi/buidl-0.2.37-py3-none-any.whl', { checkIntegrity: true })
+
+// RIPEMD-160
+self.ripemd160 = ripemd160
 
 const decoder: TextDecoder = new TextDecoder()
 let inputData = null
@@ -68,6 +73,37 @@ def pbkdf2_hmac(hash_name, password, salt, iterations, dklen=None):
   dk = b''.join(F(i + 1) for i in range(blocks))
   return dk[:dklen]
 hashlib.pbkdf2_hmac = pbkdf2_hmac
+
+
+# NOTE: shim hashlib new inside pyodide to include ripemd160 from wasm implementation
+from js import Uint8Array, ripemd160
+class JSRipemd160:
+  def __init__(self, data=b''):
+    self._data = data if isinstance(data, bytes) else data.encode('utf-8')
+  
+  def update(self, data):
+    if isinstance(data, str):
+      data = data.encode('utf-8')
+    self._data += data
+  
+  def digest(self):
+    uint8_data = Uint8Array.new(list(self._data))
+    result = ripemd160(uint8_data)
+    return bytes(result)
+  
+  def hexdigest(self):
+    return self.digest().hex()
+
+from hashlib import new as hashlib_new
+def new(name: str, data: bytes = b""):
+  if name == "ripemd160":
+    h = JSRipemd160()
+    if data:
+      h.update(data)
+    return h
+  else:
+    return hashlib_new(name, data)
+hashlib.new = new
 
 
 # NOTE: shim opcodes from buidl.op.OP_CODE_NAMES
