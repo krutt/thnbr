@@ -9,7 +9,7 @@ const pyodide = await loadPyodide({
   stderr: () => console.error,
   stdout: () => console.log,
 })
-await pyodide.loadPackage('/thonburi/buidl-0.2.37-py3-none-any.whl', { checkIntegrity: true })
+await pyodide.loadPackage('/thnbr/buidl-0.2.37-py3-none-any.whl', { checkIntegrity: true })
 
 // @ts-ignore
 self.ripemd160 = ripemd160
