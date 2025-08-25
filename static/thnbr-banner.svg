@@ -91,7 +91,7 @@
     letter-spacing='2rem'
     text-anchor='left'
     x='16rem'
-    y='6rem'>
+    y='8rem'>
     ธนบุรี
   </text>
   <use
@@ -103,7 +103,7 @@
   <text
     font-family='Arial'
     font-size='1.2rem'
-    y='10rem'
+    y='12rem'
     >
     <tspan dy='0' x='40rem'>
       /tʰon bùʔ riː/

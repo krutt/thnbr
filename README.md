@@ -1,13 +1,13 @@
 # thnbr
 
 [![Bitcoin-only](https://img.shields.io/badge/bitcoin-only-FF9900?logo=bitcoin)](https://twentyone.world)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/aekasitt/thonburi/blob/master/LICENSE)
-[![Top](https://img.shields.io/github/languages/top/aekasitt/thonburi)](https://github.com/aekasitt/thonburi)
-[![Languages](https://img.shields.io/github/languages/count/aekasitt/thonburi)](https://github.com/aekasitt/thonburi)
-[![Size](https://img.shields.io/github/repo-size/aekasitt/thonburi)](https://github.com/aekasitt/thonburi)
-[![Last commit](https://img.shields.io/github/last-commit/aekasitt/thonburi/master)](https://github.com/aekasitt/thonburi)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/krutt/thnbr/blob/master/LICENSE)
+[![Top](https://img.shields.io/github/languages/top/krutt/thnbr)](https://github.com/krutt/thnbr)
+[![Languages](https://img.shields.io/github/languages/count/krutt/thnbr)](https://github.com/krutt/thnbr)
+[![Size](https://img.shields.io/github/repo-size/krutt/thnbr)](https://github.com/krutt/thnbr)
+[![Last commit](https://img.shields.io/github/last-commit/krutt/thnbr/master)](https://github.com/krutt/thnbr)
 
-[![Thonburi banner](https://github.com/aekasitt/thonburi/blob/master/static/thonburi-banner.svg)](static/thonburi-banner.svg)
+[![Thonburi banner](https://github.com/krutt/thnbr/blob/master/static/thnbr-banner.svg)](static/thnbr-banner.svg)
 
 ## Prerequisites
 
@@ -30,7 +30,7 @@
   <summary> Project structure </summary>
 
   ```
-  thonburi/
+  thnbr/
   ├── LICENSE                              # MIT License permission outline
   ├── README.md                            # Project setup and test setup walkthrough
   ├── index.html                           # Hypertext template where application is embedded
@@ -63,9 +63,9 @@
   │   ├── pyodide.mjs                      # Small JS loader shim which exports `loadPyodide`
   │   ├── pyodide-lock.json                # Lockfile for Python packages
   │   ├── python_stdlib.zip                # Python standard libraries for Pyodide
-  │   ├── thonburi.svg                        # Project logo
-  │   ├── thonburi-banner.svg                 # Project banner
-  │   └── thonburi-social.svg                 # Project social link preview
+  │   ├── thnbr.svg                        # Project logo
+  │   ├── thnbr-banner.svg                 # Project banner
+  │   └── thnbr-social.svg                 # Project social link preview
   │
   ├── tailwind.config.js                   # Styling plugins and rules for TailwindCSS
   └── vite.config.js                       # Bundler configuration and static asset bypass

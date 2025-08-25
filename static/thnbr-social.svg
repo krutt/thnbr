@@ -161,22 +161,22 @@
   <g filter='url(#dropShadowLite)'>
     <path
       d='
-        M908, 475
-        h-408
+        M871, 475
+        h-371
         q-9,0 -9,9
         q0,9 9,9
-        h408
+        h371
         z
       '
       fill='#3572A5'
       />
     <path
       d='
-        M908, 475
-        h292
+        M871, 475
+        h329
         q9,0 9,9
         q0,9 -9,9
-        h-292
+        h-329
         z
       '
       fill='#41B883'
@@ -195,17 +195,17 @@
     <tspan
       fill='#888'
       >
-      60.5%
+      53%
     </tspan>
     <tspan
-      dx='16rem'
+      dx='14rem'
       >
       Vue
     </tspan>
     <tspan
       fill='#888'
       >
-      39.5%
+      47%
     </tspan>
   </text>
 </svg>
