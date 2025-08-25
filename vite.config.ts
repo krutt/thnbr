@@ -14,7 +14,7 @@ import topLevelAwait from 'vite-plugin-top-level-await'
 import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
-  base: '/thonburi/',
+  base: '/thnbr/',
   css: {
     postcss: {
       plugins: [autoprefixer(), tailwind()],
