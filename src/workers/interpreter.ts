@@ -11,7 +11,7 @@ const pyodide = await loadPyodide({
 })
 await pyodide.loadPackage('/thonburi/buidl-0.2.37-py3-none-any.whl', { checkIntegrity: true })
 
-// RIPEMD-160
+// @ts-ignore
 self.ripemd160 = ripemd160
 
 const decoder: TextDecoder = new TextDecoder()
