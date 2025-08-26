@@ -2,12 +2,12 @@
 
 import autoImport from 'unplugin-auto-import/vite'
 import autoprefixer from 'autoprefixer'
-import { mkdir, readFile, writeFile } from 'fs/promises'
+import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { defineConfig } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
-import { gzip } from 'zlib'
+import { gzip } from 'node:zlib'
 import { promisify } from 'node:util'
-import { resolve } from 'path'
+import { resolve } from 'node:path'
 import svgLoader from 'vite-svg-loader'
 import tailwind from 'tailwindcss'
 import topLevelAwait from 'vite-plugin-top-level-await'
@@ -43,29 +43,34 @@ export default defineConfig({
     vue(),
     {
       generateBundle: async () => {
-        let assetsDir = 'dist/assets'
+        const assetsDir = 'dist/assets'
         await mkdir(assetsDir, { recursive: true })
-        let files = ['pyodide-lock.json', 'pyodide.asm.js', 'pyodide.asm.wasm', 'python_stdlib.zip']
-        let gzipAsync = promisify(gzip)
-        let modulePath = resolve(__dirname, './static/')
-        for (let file of files) {
-          let buffer = await readFile(resolve(modulePath, file))
-          let compressed = await gzipAsync(buffer)
+        const files = [
+          'pyodide-lock.json',
+          'pyodide.asm.js',
+          'pyodide.asm.wasm',
+          'python_stdlib.zip',
+        ]
+        const gzipAsync = promisify(gzip)
+        const modulePath = resolve(__dirname, './static/')
+        for (const file of files) {
+          const buffer = await readFile(resolve(modulePath, file))
+          const compressed = await gzipAsync(buffer)
           await writeFile(resolve(assetsDir, file), compressed)
         }
       },
       name: 'vite-pyodide',
     },
     {
-      configureServer: server => {
-        server.middlewares.use((_req, res, next) => {
+      configureServer: (server) => {
+        server.middlewares.use((_, res, next) => {
           res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp')
           res.setHeader('Cross-Origin-Opener-Policy', 'same-origin')
           next()
         })
       },
       configurePreviewServer(server) {
-        server.middlewares.use((req, res, next) => {
+        server.middlewares.use((_, res, next) => {
           res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp')
           res.setHeader('Cross-Origin-Opener-Policy', 'same-origin')
           next()

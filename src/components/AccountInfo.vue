@@ -2,9 +2,9 @@
 /* imports */
 import { Jdenticon } from '@/components'
 
-let { address } = storeToRefs(useAlby())
-let balance = ref(0)
-let { fetchBalance } = useAesir()
+const { address } = storeToRefs(useAlby())
+const balance = ref(0)
+const { fetchBalance } = useAesir()
 
 onMounted(async () => (balance.value = await fetchBalance(address.value)))
 </script>

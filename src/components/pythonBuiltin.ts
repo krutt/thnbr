@@ -5,10 +5,16 @@
  * Distributed under the terms of the Modified BSD License.
  */
 
-import { Language, syntaxTree } from '@codemirror/language'
+import { type Language, syntaxTree } from '@codemirror/language'
 import { RangeSetBuilder } from '@codemirror/state'
-import { Decoration, DecorationSet, EditorView, ViewPlugin, ViewUpdate } from '@codemirror/view'
-import { NodeProp, SyntaxNodeRef, Tree } from '@lezer/common'
+import {
+  Decoration,
+  type DecorationSet,
+  type EditorView,
+  ViewPlugin,
+  type ViewUpdate,
+} from '@codemirror/view'
+import { NodeProp, type SyntaxNodeRef, type Tree } from '@lezer/common'
 
 export class PythonBuiltin {
   decorations: DecorationSet
@@ -26,8 +32,8 @@ export class PythonBuiltin {
   }
 
   update(update: ViewUpdate) {
-    let tree = syntaxTree(update.state)
-    let { viewport } = update.view,
+    const tree = syntaxTree(update.state)
+    const { viewport } = update.view,
       decoratedToMapped = update.changes.mapPos(this.decoratedTo, 1)
     if (
       tree.length < viewport.to &&
@@ -46,7 +52,7 @@ export class PythonBuiltin {
   buildDeco(view: EditorView) {
     if (!this.tree.length) return Decoration.none
 
-    let builder = new RangeSetBuilder<Decoration>()
+    const builder = new RangeSetBuilder<Decoration>()
     const enter = (node: SyntaxNodeRef) => {
       const cursor = node.node.cursor()
       // Handle nested language, e.g. Markdown
@@ -64,7 +70,7 @@ export class PythonBuiltin {
         }
       }
     }
-    for (let { from, to } of view.visibleRanges) {
+    for (const { from, to } of view.visibleRanges) {
       this.tree.iterate({ enter, from, to })
     }
     return builder.finish()
@@ -72,8 +78,8 @@ export class PythonBuiltin {
 }
 
 export function pythonBuiltin(langPython: Language) {
-  return ViewPlugin.define(view => new PythonBuiltin(view, langPython), {
-    decorations: v => v.decorations,
+  return ViewPlugin.define((view) => new PythonBuiltin(view, langPython), {
+    decorations: (v) => v.decorations,
   })
 }
 

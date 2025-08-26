@@ -1,16 +1,17 @@
 <script lang="ts" setup>
 /* imports */
-import Krutt from '@/assets/krutt.svg'
+
 import GitHub from '@/assets/github.svg'
 import Hamburger from '@/assets/hamburger.svg'
+import Krutt from '@/assets/krutt.svg'
 
 /* funcs */
-let goToGitHub = () => {
+const goToGitHub = () => {
   window.open('https://github.com/aekasitt/thonburi', '_blank')
 }
 
 /* refs */
-let menuOpen = ref(false)
+const menuOpen = ref(false)
 </script>
 
 <template>

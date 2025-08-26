@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import Repl from '@/components/Repl.vue'
 
-let address: Ref<string> = ref('')
-let alby = useAlby()
+const address: Ref<string> = ref('')
+const alby = useAlby()
 onMounted(async () => {
   await alby.connectWallet()
   address.value = alby.address

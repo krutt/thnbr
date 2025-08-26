@@ -24,6 +24,7 @@
   },
   "description": "Online Integrated Development Environment for Bitscript via Python powered by WASM",
   "devDependencies": {
+    "@biomejs/biome": "^2.2.2",
     "@tailwindcss/typography": "^0.5.16",
     "@vitejs/plugin-vue": "^4.6.2",
     "@vueuse/core": "^11.3.0",
@@ -37,26 +38,12 @@
     "vue-tsc": "^2.2.10"
   },
   "name": "thonburi",
-  "prettier": {
-    "arrowParens": "avoid",
-    "bracketSpacing": true,
-    "endOfLine": "lf",
-    "printWidth": 100,
-    "proseWrap": "preserve",
-    "quoteProps": "as-needed",
-    "requirePragma": false,
-    "semi": false,
-    "singleQuote": true,
-    "tabWidth": 2,
-    "trailingComma": "es5",
-    "useTabs": false,
-    "vueIndentScriptAndStyle": false
-  },
   "private": true,
   "scripts": {
     "build": "vue-tsc -b && vite build",
+    "check": "biome check --write src && biome check --write vite.config.ts",
     "dev": "vite",
-    "fmt": "prettier --write src && prettier --write vite.config.ts",
+    "fmt": "biome format --write src && biome format --write vite.config.ts",
     "preview": "vite preview"
   },
   "type": "module",

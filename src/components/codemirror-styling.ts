@@ -1,17 +1,17 @@
-import { EditorView, ViewPlugin } from '@codemirror/view'
-import { StateEffect, StateField } from '@codemirror/state'
-import { HighlightStyle, LanguageSupport, syntaxHighlighting } from '@codemirror/language'
-import { tags as t } from '@lezer/highlight'
 import { pythonLanguage } from '@codemirror/lang-python'
+import { HighlightStyle, LanguageSupport, syntaxHighlighting } from '@codemirror/language'
+import { StateEffect, StateField } from '@codemirror/state'
+import { EditorView, ViewPlugin } from '@codemirror/view'
+import { tags as t } from '@lezer/highlight'
 import { pythonBuiltin } from './pythonBuiltin'
 
 const isDark = () => document.documentElement.classList.contains('dark')
 
 const darkModeUpdate = StateEffect.define<boolean>()
 
-const darkModeWatcher = ViewPlugin.define(view => {
+const darkModeWatcher = ViewPlugin.define((view) => {
   const observer = new MutationObserver(() =>
-    view.dispatch({ effects: darkModeUpdate.of(isDark()) })
+    view.dispatch({ effects: darkModeUpdate.of(isDark()) }),
   )
   observer.observe(document.documentElement, { attributeFilter: ['class'] })
   return { destroy: () => observer.disconnect() }
@@ -23,7 +23,7 @@ const darkMode = StateField.define<boolean>({
     for (const effect of transaction.effects) if (effect.is(darkModeUpdate)) return effect.value
     return value
   },
-  provide: field => [EditorView.darkTheme.from(field), darkModeWatcher],
+  provide: (field) => [EditorView.darkTheme.from(field), darkModeWatcher],
 })
 
 const theme = EditorView.baseTheme({
@@ -51,8 +51,8 @@ const lightHighlight = syntaxHighlighting(
       { tag: [t.operator, t.keyword], color: '#D73A49' },
       { tag: t.definition(t.name), color: '#6F42C1' },
     ],
-    { themeType: 'light' }
-  )
+    { themeType: 'light' },
+  ),
 )
 
 const darkHighlight = syntaxHighlighting(
@@ -65,8 +65,8 @@ const darkHighlight = syntaxHighlighting(
       { tag: [t.operator, t.keyword], color: '#F97583' },
       { tag: t.definition(t.name), color: '#B392F0' },
     ],
-    { themeType: 'dark' }
-  )
+    { themeType: 'dark' },
+  ),
 )
 
 export const styling = [

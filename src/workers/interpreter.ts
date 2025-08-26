@@ -1,17 +1,19 @@
 /* ~~/src/workers/buidl.ts */
 
-// imports
-import { loadPyodide } from 'pyodide'
+/* imports */
 import { ripemd160 } from '@noble/hashes/legacy.js'
+import { loadPyodide } from 'pyodide'
 
 const pyodide = await loadPyodide({
   indexURL: import.meta.env.BASE_URL,
   stderr: () => console.error,
   stdout: () => console.log,
 })
-await pyodide.loadPackage('/thnbr/buidl-0.2.37-py3-none-any.whl', { checkIntegrity: true })
+await pyodide.loadPackage('/thnbr/buidl-0.2.37-py3-none-any.whl', {
+  checkIntegrity: true,
+})
 
-// @ts-ignore
+// @ts-expect-error
 self.ripemd160 = ripemd160
 
 const decoder: TextDecoder = new TextDecoder()
@@ -27,7 +29,7 @@ onmessage = async (event: MessageEvent) => {
   }
   const { id, code } = event.data
   pyodide.setStdout({
-    write: buf => {
+    write: (buf) => {
       postMessage({ id, output: decoder.decode(buf) })
       return buf.length
     },
@@ -129,13 +131,19 @@ except StopIteration:
   except StopIteration:
     exec("""${code}""")
 `
-    await pyodide.runPythonAsync(wrappedCode, { filename: '<editor>', globals, locals: globals })
+    await pyodide.runPythonAsync(wrappedCode, {
+      filename: '<editor>',
+      globals,
+      locals: globals,
+    })
     globals.destroy()
     dict.destroy()
   } catch (error) {
     if (error instanceof Error && error.constructor.name === 'PythonError') {
-      let lines = error.message.split('\n')
-      let output = lines.slice(lines.findIndex(line => line.includes('File "<editor>"'))).join('\n')
+      const lines = error.message.split('\n')
+      const output = lines
+        .slice(lines.findIndex((line) => line.includes('File "<editor>"')))
+        .join('\n')
       if (!output.endsWith('KeyboardInterrupt\n')) postMessage({ id, output })
     } else {
       throw error

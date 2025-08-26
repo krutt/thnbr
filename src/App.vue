@@ -1,13 +1,11 @@
 <script lang="ts" setup>
 /* imports */
 import { RouterView } from 'vue-router'
-
+/* vectors */
+import Krutt from '@/assets/krutt.svg'
 /* components */
 import NetworkSelect from '@/components/NetworkSelect.vue'
 import ThemeToggle from '@/components/ThemeToggle.vue'
-
-/* vectors */
-import Krutt from '@/assets/krutt.svg'
 
 /* composables */
 // let alby = useAlby()

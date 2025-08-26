@@ -3,10 +3,10 @@
 import { Moon, Sun } from 'lucide-vue-next'
 
 /* composables */
-let theme = useColorMode({ disableTransition: false })
+const theme = useColorMode({ disableTransition: false })
 
 /* functions */
-let toggleTheme = () => (theme.value = theme.value !== 'light' ? 'light' : 'dark')
+const toggleTheme = () => (theme.value = theme.value !== 'light' ? 'light' : 'dark')
 </script>
 <template>
   <div>

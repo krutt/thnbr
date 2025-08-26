@@ -1,5 +1,10 @@
 <script setup>
 /* components */
+
+/* vectors */
+import Aesir from '@/assets/aesir.svg'
+import Bitcoin from '@/assets/bitcoin.svg'
+import MutinyNet from '@/assets/mutiny-net.svg'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,23 +14,20 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
-/* vectors */
-import Aesir from '@/assets/aesir.svg'
-import Bitcoin from '@/assets/bitcoin.svg'
-import MutinyNet from '@/assets/mutiny-net.svg'
-
-let emit = defineEmits(['select-network'])
-let selectedNetwork = ref('regtest')
+const emit = defineEmits(['select-network'])
+const selectedNetwork = ref('regtest')
 
 /* funcs */
-let selectNetwork = network => {
+const selectNetwork = (network) => {
   selectedNetwork.value = network
-  toast('Network changed', { description: `Currently using ${selectedNetwork.value}` })
+  toast('Network changed', {
+    description: `Currently using ${selectedNetwork.value}`,
+  })
   emit('select-network', selectedNetwork.value)
 }
 
 /* lifecycle */
-onMounted(async () => (!!selectedNetwork.value ? selectNetwork(selectedNetwork.value) : void 0))
+onMounted(async () => (selectedNetwork.value ? selectNetwork(selectedNetwork.value) : void 0))
 </script>
 <template>
   <div class="h-10 w-10 mr-5">

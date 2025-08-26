@@ -2,12 +2,12 @@
 
 export const useAlby = defineStore('alby', () => {
   // refs
-  let address: Ref<string> = ref('')
-  let derivationPath: Ref<string> = ref('')
-  let publicKey: Ref<string> = ref('')
+  const address: Ref<string> = ref('')
+  const derivationPath: Ref<string> = ref('')
+  const publicKey: Ref<string> = ref('')
 
   // funcs
-  let connectWallet = async () => {
+  const connectWallet = async () => {
     // if (typeof window.webbtc !== 'undefined') {
     //   await window.webbtc.enable()
     //   let response = await window.webbtc.getAddress()
@@ -20,30 +20,30 @@ export const useAlby = defineStore('alby', () => {
     // }
   }
 
-  let storeAddress = value => {
+  const storeAddress = (value) => {
     address.value = value
     localStorage.setItem('address', value)
   }
 
-  let storeDerivationPath = value => {
+  const storeDerivationPath = (value) => {
     derivationPath.value = value
     localStorage.setItem('derivationPath', value)
   }
 
-  let storePublicKey = value => {
+  const storePublicKey = (value) => {
     publicKey.value = value
     localStorage.setItem('publicKey', value)
   }
 
-  let unsetAddress = () => {
+  const unsetAddress = () => {
     address.value = null
     localStorage.removeItem('address')
   }
-  let unsetDerivationPath = () => {
+  const unsetDerivationPath = () => {
     derivationPath.value = null
     localStorage.removeItem('derivationPath')
   }
-  let unsetPublicKey = () => {
+  const unsetPublicKey = () => {
     publicKey.value = null
     localStorage.removeItem('publicKey')
   }

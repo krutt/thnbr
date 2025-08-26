@@ -1,13 +1,13 @@
 /* ~~/src/main.js */
 
-import App from '@/App.vue'
+import { createPinia } from 'pinia'
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import { createPinia } from 'pinia'
+import App from '@/App.vue'
 import './assets/styles.css'
 
 /* routes */
-let router = createRouter({
+const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
@@ -19,6 +19,6 @@ let router = createRouter({
 })
 
 /* stores */
-let pinia = createPinia()
+const pinia = createPinia()
 
 createApp(App).use(pinia).use(router).mount('#app')

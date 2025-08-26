@@ -1,7 +1,9 @@
 <script lang="ts" setup>
+import { defaultKeymap, history, historyKeymap, indentWithTab } from '@codemirror/commands'
+import { indentUnit } from '@codemirror/language'
 import {
-  EditorView,
   drawSelection,
+  EditorView,
   highlightActiveLine,
   highlightSpecialChars,
   keymap,
@@ -10,8 +12,6 @@ import {
 import Loading from '@/assets/loading.svg'
 import Ready from '@/assets/ready.svg'
 import Running from '@/assets/running.svg'
-import { history, defaultKeymap, historyKeymap, indentWithTab } from '@codemirror/commands'
-import { indentUnit } from '@codemirror/language'
 import { styling } from '@/components/codemirror-styling'
 
 let worker
@@ -19,30 +19,32 @@ let inputData
 let waitFlag
 let interruptBuffer
 
-let ready = ref(false)
-let encoder = new TextEncoder()
+const ready = ref(false)
+const encoder = new TextEncoder()
 
-let props = { id: 'temp' } // TODO: defineProps
+const props = { id: 'temp' } // TODO: defineProps
 // let slots = useSlots()
-let storageKey = computed(() => `code-editor-${props.id}`)
+const storageKey = computed(() => `code-editor-${props.id}`)
 
-let mounted = ref(false)
-let running = ref(false)
-let waitingForInput = ref(false)
+const mounted = ref(false)
+const running = ref(false)
+const waitingForInput = ref(false)
 
-let anchor = ref()
-let parent = ref()
-let input = ref()
+const anchor = ref()
+const parent = ref()
+const input = ref()
 let initialCode = ''
 let editor
 
 onMounted(() => {
   // initialize one worker per session shared by all editor instances
   if (!worker) {
-    worker = new Worker(new URL('@/workers/interpreter.ts', import.meta.url), { type: 'module' })
-    let inputBuffer = new SharedArrayBuffer(1024)
+    worker = new Worker(new URL('@/workers/interpreter.ts', import.meta.url), {
+      type: 'module',
+    })
+    const inputBuffer = new SharedArrayBuffer(1024)
     inputData = new Uint8Array(inputBuffer)
-    let waitBuffer = new SharedArrayBuffer(4)
+    const waitBuffer = new SharedArrayBuffer(4)
     waitFlag = new Int32Array(waitBuffer)
     interruptBuffer = new Uint8Array(new SharedArrayBuffer(1))
 
@@ -52,13 +54,13 @@ onMounted(() => {
         ready.value = true
         worker.postMessage({ inputBuffer, waitBuffer, interruptBuffer })
       },
-      { once: true }
+      { once: true },
     )
   }
   worker.addEventListener('message', handleMessage)
 
-  let prev = anchor.value?.previousElementSibling
-  let codeElement = prev?.classList.contains('language-python') ? prev : null
+  const prev = anchor.value?.previousElementSibling
+  const codeElement = prev?.classList.contains('language-python') ? prev : null
   initialCode = ''
   codeElement?.setAttribute('hidden', '')
 
@@ -101,7 +103,7 @@ async function handleMessage(e) {
   if (e.data.done) running.value = false
 }
 
-let inputText = ref('')
+const inputText = ref('')
 watchEffect(() => {
   if (input.value) input.value.style.width = `${inputText.value.length + 1}ch`
 })
@@ -109,7 +111,7 @@ watchEffect(() => {
 function handleInput() {
   waitingForInput.value = false
 
-  let inputArry = encoder.encode(inputText.value ?? '')
+  const inputArry = encoder.encode(inputText.value ?? '')
   inputText.value = ''
 
   Atomics.store(inputData, 0, inputArry.length)
@@ -120,18 +122,18 @@ function handleInput() {
   Atomics.store(waitFlag, 0, 0)
 }
 
-let buttonText = computed(() =>
-  ready.value ? (running.value ? 'Running code...' : 'Run code') : 'Loading Pyodide...'
+const buttonText = computed(() =>
+  ready.value ? (running.value ? 'Running code...' : 'Run code') : 'Loading Pyodide...',
 )
 
-let outputLines = computed(() => {
-  let lines = output.value.map(l => l.join(''))
+const outputLines = computed(() => {
+  const lines = output.value.map((l) => l.join(''))
   if (lines[lines.length - 1] === '' && !waitingForInput.value) lines.pop()
   return lines.length === 0 ? [''] : lines
 })
 
 function run() {
-  let code = editor.state.doc.toString()
+  const code = editor.state.doc.toString()
   save(code)
   resetOutput()
   running.value = true
@@ -162,13 +164,13 @@ function save(code) {
   else localStorage.setItem(storageKey.value, code)
 }
 
-let output = ref([])
-let outputWidth = 72
+const output = ref([])
+const outputWidth = 72
 let outputRow = 0
 let outputCol = 0
 
 function updateOutput(raw) {
-  for (let c of raw) {
+  for (const c of raw) {
     if (c === '\n') {
       outputRow++
       outputCol = 0
