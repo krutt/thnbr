@@ -9,22 +9,13 @@
 
 [![Thonburi banner](https://github.com/krutt/thnbr/blob/master/static/thnbr-banner.svg)](static/thnbr-banner.svg)
 
-## Prerequisites
-
-* [node](https://nodejs.org) - Run JavaScript Everywhere
-* [pnpm](https://pnpm.io) - Fast, disk space efficient package manager
-* Web browser of choice (Chrome or Firefox)
-  * [![Chrome Logo](static/chrome.svg) Chrome](https://www.google.com/chrome)
-  * [![Firefox Logo](static/firefox.svg) Firefox](https://www.mozilla.org/en-US/firefox/new)
-
 ## Stack
 
 * [Pyodide](https://pyodide.org/en/stable)
 * [Tailwind CSS](https://tailwindcss.com)
+* [shadcn/vue](https://shadcn-vue.com)
 * [Vite](https://vitejs.dev)
 * [Vue 3](https://v3.vuejs.org)
-
-## Contribute
 
 <details>
   <summary> Project structure </summary>
@@ -36,20 +27,23 @@
   ├── index.html                           # Hypertext template where application is embedded
   ├── package.json                         # Project definitions and dependencies 
   ├── src/
+  │   ├── App.vue                          # Vue single-page application base view
   │   ├── assets/                          # Collection of stylesheets and vector assets
   │   │   └── ...                          # TODO: expand descriptions
   │   │
   │   ├── components/                      # Collection of Vue frontend components
   │   │   └── ...                          # TODO: expand descriptions
   │   │
+  │   ├── main.ts                          # Vue single-page application entrypoint
   │   ├── stores/                          # Collection of Vue composable stores
   │   │   └── ...                          # TODO: expand descriptions
   │   │
+  │   ├── style.css                        # Vue single-page application cascade styling sheet
   │   ├── views/                           # Collection of Vue frontend pages
   │   │   └── ...                          # TODO: expand descriptions
   │   │
   │   └── workers/                         # Collection of web workers
-  │       └── mattvm.js                    # Pyodide parser with `pymatt` pre-installed
+  │       └── interpreter.ts               # Pyodide interpreter with required shims
   │
   ├── static/                              # Static assets
   │   ├── coi-serviceworker.min.js         # Cross-origin isolation through a service worker
@@ -68,10 +62,131 @@
   │   └── thnbr-social.svg                 # Project social link preview
   │
   ├── tailwind.config.js                   # Styling plugins and rules for TailwindCSS
-  └── vite.config.js                       # Bundler configuration and static asset bypass
+  └── vite.config.ts                       # Bundler configuration and static asset bypass
   ```
 
   Notable exemptions: `dotfiles`, `lockfile` and `component library generated files`
+</details>
+
+## Contributions
+
+### Prerequisites
+
+* [node](https://nodejs.org) - Run JavaScript Everywhere
+* [pnpm](https://pnpm.io) - Fast, disk space efficient package manager
+* Web browser of choice (Chrome or Firefox)
+  * [![Chrome Logo](static/chrome.svg) Chrome](https://www.google.com/chrome)
+  * [![Firefox Logo](static/firefox.svg) Firefox](https://www.mozilla.org/en-US/firefox/new)
+
+### Getting started
+
+Install the project dependencies with the following command:
+
+```sh
+pnpm install
+```
+
+<details>
+  <summary> Sample output of successful dependency installation </summary>
+
+  ```sh
+  $ pnpm install
+  > Lockfile is up to date, resolution step is skipped
+  > Packages: +263
+  > ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  > Downloading @biomejs/cli-darwin-x64@2.2.2: 14.67 MB/14.67 MB, done
+  > Progress: resolved 263, reused 260, downloaded 3, added 263, done
+  >
+  > dependencies:
+  > + @codemirror/commands 6.8.1
+  > + @codemirror/lang-python 6.2.1
+  > + @codemirror/language 6.11.1
+  > + @codemirror/state 6.5.2
+  > + @codemirror/view 6.37.2
+  > + @lezer/common 1.2.3
+  > + @lezer/highlight 1.2.1
+  > + @noble/hashes 1.8.0
+  > + @tanstack/vue-table 8.21.3
+  > + class-variance-authority 0.7.1
+  > + clsx 2.1.1
+  > + jdenticon 3.3.0
+  > + lucide-vue-next 0.541.0
+  > + pinia 2.3.1
+  > + pyodide 0.27.7
+  > + reka-ui 2.4.1
+  > + tailwind-merge 3.3.1
+  > + tailwindcss-animate 1.0.7
+  > + vue 3.5.17
+  > + vue-router 4.5.1
+  > + vue-sonner 2.0.0
+  >
+  > devDependencies:
+  > + @biomejs/biome 2.2.2
+  > + @tailwindcss/typography 0.5.16
+  > + @vitejs/plugin-vue 4.6.2
+  > + @vueuse/core 11.3.0
+  > + autoprefixer 10.4.21
+  > + tailwindcss 3.4.17
+  > + typescript 5.8.3
+  > + unplugin-auto-import 0.18.6
+  > + vite 5.4.19
+  > + vite-plugin-top-level-await 1.5.0
+  > + vite-svg-loader 5.1.0
+  > + vue-tsc 2.2.10
+  >
+  > Done in 11s
+  ```
+</details>
+
+Before the current repository can be built with `pnpm run build` command, you must first
+download the required [shadcn/vue](https://shadcn-vue.com) components first. We currently
+use two of the many components listed under shadcn/vue components which are:
+
+* [Button](https://www.shadcn-vue.com/docs/components/button.html)
+* [DropdownMenu](https://www.shadcn-vue.com/docs/components/dropdown-menu.html)
+
+Using the following commands:
+
+```sh
+pnpm dlx shadcn-vue@latest add button
+```
+
+and
+
+```sh
+pnpm dlx shadcn-vue@latest add dropdown-menu
+```
+
+<details>
+  <summary> Sample outputs of running the component download commands successfully </summary>
+
+  ```sh
+  $ pnpm dlx shadcn-vue@latest add button
+  > ✔ Checking registry.
+  > ✔ Installing dependencies.
+  > ✔ Created 2 files:
+  >   - src/components/ui/button/Button.vue                                                                                                 6:43:58 PM
+  >   - src/components/ui/button/index.ts
+  $ pnpm dlx shadcn-vue@latest add dropdown-menu
+  > ✔ Checking registry.
+  > ✔ Installing dependencies.
+  > ✔ Created 15 files:
+  >   - src/components/ui/dropdown-menu/DropdownMenu.vue                                                                                    6:45:07 PM
+  >   - src/components/ui/dropdown-menu/DropdownMenuCheckboxItem.vue                                                                        6:45:08 PM
+  >   - src/components/ui/dropdown-menu/DropdownMenuContent.vue                                                                             6:45:08 PM
+  >   - src/components/ui/dropdown-menu/DropdownMenuGroup.vue                                                                               6:45:08 PM
+  >   - src/components/ui/dropdown-menu/DropdownMenuItem.vue                                                                                6:45:08 PM
+  >   - src/components/ui/dropdown-menu/DropdownMenuLabel.vue                                                                               6:45:08 PM
+  >   - src/components/ui/dropdown-menu/DropdownMenuRadioGroup.vue                                                                          6:45:08 PM
+  >   - src/components/ui/dropdown-menu/DropdownMenuRadioItem.vue                                                                           6:45:08 PM
+  >   - src/components/ui/dropdown-menu/DropdownMenuSeparator.vue                                                                           6:45:08 PM
+  >   - src/components/ui/dropdown-menu/DropdownMenuShortcut.vue                                                                            6:45:08 PM
+  >   - src/components/ui/dropdown-menu/DropdownMenuSub.vue                                                                                 6:45:08 PM
+  >   - src/components/ui/dropdown-menu/DropdownMenuSubContent.vue                                                                          6:45:08 PM
+  >   - src/components/ui/dropdown-menu/DropdownMenuSubTrigger.vue                                                                          6:45:08 PM
+  >   - src/components/ui/dropdown-menu/DropdownMenuTrigger.vue                                                                             6:45:08 PM
+  >   - src/components/ui/dropdown-menu/index.ts
+  ```
 </details>
 
 ### Patches

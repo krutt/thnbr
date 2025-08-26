@@ -1,19 +1,21 @@
-# environment variable
+### environment ###
 **/.env
 
-
-# node
+### node ###
 dist
 node_modules
 tsconfig.tsbuildinfo
-vite.config.ts.**.mjs
 
-
-# macos
+### macos ##
 **/.DS_Store
 
+### shadcn-vue ###
+src/components/ui
 
-# workspace settings
+### vite ###
+vite.config.ts.**.mjs
+
+### workspace ###
 .idea
 .ignore
 .vscode

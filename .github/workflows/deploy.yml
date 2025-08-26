@@ -21,6 +21,10 @@ jobs:
           cache: 'pnpm'
       - name: Install dependencies
         run: pnpm install
+      - name: Add shadcn-vue/ui components
+        run: |
+          pnpm dlx shadcn-vue@latest add button
+          pnpm dlx shadcn-vue@latest add dropdown-menu
       - name: Build project
         run: pnpm run build
       - name: Upload production-ready build files

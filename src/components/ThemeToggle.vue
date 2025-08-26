@@ -2,6 +2,9 @@
 /* vectors */
 import { Moon, Sun } from 'lucide-vue-next'
 
+/* components */
+import { Button } from '@/components/ui/button'
+
 /* composables */
 const theme = useColorMode({ disableTransition: false })
 
