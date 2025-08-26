@@ -2,7 +2,7 @@
 
 // imports
 import { loadPyodide } from 'pyodide'
-import { ripemd160 } from '@noble/hashes/legacy.js';
+import { ripemd160 } from '@noble/hashes/legacy.js'
 
 const pyodide = await loadPyodide({
   indexURL: import.meta.env.BASE_URL,
