@@ -37,7 +37,7 @@
     "vite-svg-loader": "^5.1.0",
     "vue-tsc": "^2.2.10"
   },
-  "name": "thonburi",
+  "name": "thnbr",
   "private": true,
   "scripts": {
     "build": "vue-tsc -b && vite build",
