@@ -1,6 +1,8 @@
+/* ~~/src/lib/utils.ts */
+
+/* imports */
 import type { Updater } from '@tanstack/vue-table'
-import type { ClassValue } from 'clsx'
-import { clsx } from 'clsx'
+import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import type { Ref } from 'vue'
 
