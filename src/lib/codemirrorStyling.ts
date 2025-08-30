@@ -1,10 +1,14 @@
-import { pythonLanguage } from '@codemirror/lang-python'
+/* ~~/src/lib/codemirrorStyling.ts */
+
+/* imports */
+import { EditorView, ViewPlugin } from '@codemirror/view'
 import { HighlightStyle, LanguageSupport, syntaxHighlighting } from '@codemirror/language'
 import { StateEffect, StateField } from '@codemirror/state'
-import { EditorView, ViewPlugin } from '@codemirror/view'
-import { tags as t } from '@lezer/highlight'
 import { pythonBuiltin } from '@/lib/pythonBuiltin'
+import { pythonLanguage } from '@codemirror/lang-python'
+import { tags } from '@lezer/highlight'
 
+// TODO: decide which to use, attribute or class
 const isDark = () => document.documentElement.classList.contains('dark')
 
 const darkModeUpdate = StateEffect.define<boolean>()
@@ -44,12 +48,12 @@ const theme = EditorView.baseTheme({
 const lightHighlight = syntaxHighlighting(
   HighlightStyle.define(
     [
-      { tag: t.comment, color: '#6A737D' },
-      { tag: t.string, color: '#032F62' },
-      { tag: [t.literal, t.null, t.brace], color: '#005CC5' },
-      { tag: [t.name, t.derefOperator], color: '#24292E' },
-      { tag: [t.operator, t.keyword], color: '#D73A49' },
-      { tag: t.definition(t.name), color: '#6F42C1' },
+      { tag: tags.comment, color: '#6A737D' },
+      { tag: tags.string, color: '#032F62' },
+      { tag: [tags.literal, tags.null, tags.brace], color: '#005CC5' },
+      { tag: [tags.name, tags.derefOperator], color: '#24292E' },
+      { tag: [tags.operator, tags.keyword], color: '#D73A49' },
+      { tag: tags.definition(tags.name), color: '#6F42C1' },
     ],
     { themeType: 'light' },
   ),
@@ -58,12 +62,12 @@ const lightHighlight = syntaxHighlighting(
 const darkHighlight = syntaxHighlighting(
   HighlightStyle.define(
     [
-      { tag: t.comment, color: '#6A737D' },
-      { tag: t.string, color: '#9ECBFF' },
-      { tag: [t.literal, t.null, t.brace], color: '#79B8FF' },
-      { tag: [t.name, t.derefOperator], color: '#E1E4E8' },
-      { tag: [t.operator, t.keyword], color: '#F97583' },
-      { tag: t.definition(t.name), color: '#B392F0' },
+      { tag: tags.comment, color: '#6A737D' },
+      { tag: tags.string, color: '#9ECBFF' },
+      { tag: [tags.literal, tags.null, tags.brace], color: '#79B8FF' },
+      { tag: [tags.name, tags.derefOperator], color: '#E1E4E8' },
+      { tag: [tags.operator, tags.keyword], color: '#F97583' },
+      { tag: tags.definition(tags.name), color: '#B392F0' },
     ],
     { themeType: 'dark' },
   ),
