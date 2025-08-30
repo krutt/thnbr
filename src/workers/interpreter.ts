@@ -7,6 +7,11 @@ import { sha256, sha512 } from '@noble/hashes/sha2'
 import { sha1 } from '@noble/hashes/sha1'
 import { loadPyodide } from 'pyodide'
 
+/* python setup modules */
+import hashfib from '@/workers/sideload/hashfib.py?raw'
+import opcodes from '@/workers/sideload/opcodes.py?raw'
+import wrapped from '@/workers/sideload/wrapped.py?raw'
+
 const pyodide = await loadPyodide({
   indexURL: import.meta.env.BASE_URL,
   stderr: () => console.error,
@@ -64,107 +69,14 @@ onmessage = async (event: MessageEvent) => {
     // https://github.com/pyodide/pyodide/issues/703#issuecomment-1937774811
     const dict = pyodide.globals.get('dict')
     const globals = dict()
-    const wrappedCode = `
-from ast import AST, Module, Name, Store, parse, walk
-from collections.abc import Iterator
-
-
-# NOTE: shim pbkdf2_hmac using secure @noble/hashes implementation
-#       https://pyodide.org/en/stable/usage/wasm-constraints.html#modules-with-limited-functionality
-import hashlib
-from array import array
-from js import Uint8Array, pbkdf2, sha1, sha256, sha512
-from mmap import mmap
-from typing import Callable, Literal, Mapping, TypeAlias
-
-
-NOBLE_HASHES: Mapping[Literal["sha1", "sha256", "sha512"], Callable[..., str]]= {
-  "sha1": sha1,
-  "sha256": sha256,
-  "sha512": sha512,
-}
-ReadableBuffer: TypeAlias = bytes | bytearray | memoryview | array | mmap
-
-
-def pbkdf2_hmac(
-  hash_name: Literal["sha1", "sha256", "sha512"],
-  password: ReadableBuffer,
-  salt: ReadableBuffer,
-  iterations: int,
-  dklen: None | int = None,
-) -> bytes:
-  """
-  Secure PBKDF2-HMAC implementation using @noble/hashes.
-  This replaces the manual implementation with a cryptographically audited one.
-  """
-  if hash_name not in {"sha1", "sha256", "sha512"}:
-    raise ValueError(f"Unsupported hash function: {hash_name}")  
-  hash_func: Callable[..., str] = NOBLE_HASHES[hash_name]
-  password_array: Uint8Array = Uint8Array.new(list(password))
-  salt_array: Uint8Array = Uint8Array.new(list(salt)) 
-  options: dict[str, int] = {"c": iterations}
-  if dklen is not None:
-    options["dkLen"] = dklen
-  result: str = pbkdf2(hash_func, password_array, salt_array, options)
-  return bytes(result)
-hashlib.pbkdf2_hmac = lambda hash_name, password, salt, iterations, dklen: None
-
-
-# NOTE: shim hashlib new inside pyodide to include ripemd160 from wasm implementation
-from js import ripemd160
-class JSRipemd160:
-  def __init__(self, data=b''):
-    self._data = data if isinstance(data, bytes) else data.encode('utf-8')
-  
-  def update(self, data):
-    if isinstance(data, str):
-      data = data.encode('utf-8')
-    self._data += data
-  
-  def digest(self):
-    uint8_data = Uint8Array.new(list(self._data))
-    result = ripemd160(uint8_data)
-    return bytes(result)
-  
-  def hexdigest(self):
-    return self.digest().hex()
-
-from hashlib import new as hashlib_new
-def new(name: str, data: bytes = b""):
-  if name == "ripemd160":
-    h = JSRipemd160()
-    if data:
-      h.update(data)
-    return h
-  else:
-    return hashlib_new(name, data)
-hashlib.new = new
-
-
-# NOTE: shim opcodes from buidl.op.OP_CODE_NAMES
-from buidl.op import OP_CODE_NAMES
-OP_CODES: dict[str, int] = {value: key for key, value in OP_CODE_NAMES.items()}
-globals().update(OP_CODES)
-
-
-module: Module = parse("""${code}""")
-try:
-  next(filter(lambda node: isinstance(node, Name) and node.id == 'print', walk(module)))
-  exec("""${code}""")
-except StopIteration:
-  reversed_walker: Iterator[AST] = reversed(tuple(walk(module)))
-  try:
-    name: Name = next(
-      filter(
-        lambda node: isinstance(node, Name) and isinstance(node.ctx, Store),
-        reversed_walker
-      )
-    )
-    exec("""${code}\nprint(eval(name.id))""")
-  except StopIteration:
-    exec("""${code}""")
-`
-    await pyodide.runPythonAsync(wrappedCode, {
+    const sideloader = [
+      hashfib, // Shim PBKDF2 & RIPEMD160 implementation using @noble/hashes
+      opcodes, // Bitcoin opcodes from buidl library
+      wrapped, // Smart execution with auto-print functionality
+    ].join('\n\n')
+    const sideloaded = `${sideloader}\nwrapped("""${code}""")`
+    console.log(sideloaded)
+    await pyodide.runPythonAsync(sideloaded, {
       filename: '<editor>',
       globals,
       locals: globals,
