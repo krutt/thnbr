@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (C) 2025 All rights reserved.
-# FILENAME:    ~~/src/workers/sideload/wrapped.py
+# FILENAME:    ~~/src/workers/sideload/jupyter.py
 # VERSION:     0.0.1
 # CREATED:     2025-08-30 13:44
 # AUTHOR:      Sitt Guruvanich <aekazitt+github@gmail.com>
@@ -13,7 +13,7 @@ from ast import AST, Module, Name, Store, parse, walk
 from collections.abc import Iterator
 
 
-def wrapped(code: str) -> None:
+def execute(code: str) -> None:
   """
   Execute user code with intelligent output handling.
 

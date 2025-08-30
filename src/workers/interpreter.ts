@@ -9,8 +9,8 @@ import { loadPyodide } from 'pyodide'
 
 /* python setup modules */
 import hashfib from '@/workers/sideload/hashfib.py?raw'
+import jupyter from '@/workers/sideload/jupyter.py?raw'
 import opcodes from '@/workers/sideload/opcodes.py?raw'
-import wrapped from '@/workers/sideload/wrapped.py?raw'
 
 const pyodide = await loadPyodide({
   indexURL: import.meta.env.BASE_URL,
@@ -71,10 +71,10 @@ onmessage = async (event: MessageEvent) => {
     const globals = dict()
     const sideloader = [
       hashfib, // Shim PBKDF2 & RIPEMD160 implementation using @noble/hashes
+      jupyter, // Treat interpreted code like Jupyter cell
       opcodes, // Bitcoin opcodes from buidl library
-      wrapped, // Smart execution with auto-print functionality
     ].join('\n\n')
-    const sideloaded = `${sideloader}\nwrapped("""${code}""")`
+    const sideloaded = `${sideloader}\nexecute("""${code}""")`
     console.log(sideloaded)
     await pyodide.runPythonAsync(sideloaded, {
       filename: '<editor>',
