@@ -314,7 +314,7 @@ redeem_script_hash = sha256(redeem_script.serialize())
 # P2WSH scriptPubKey: OP_0 <redeem_script_hash>
 script_pubkey = Script([OP_0, redeem_script_hash])
 internal_pubkey = S256Point.parse_xonly(unhexlify("50929b74c1a04954b78b4b6035e97a5e078a5a0f28ec96d547bfee9ace803ac0"))
-address = internal_pubkey.p2tr_address(script_pubkey.serialize(), network="regtest")``
+address = internal_pubkey.p2tr_address(script_pubkey.serialize(), network="regtest")
 ```
 
 ### Acknowledgements
