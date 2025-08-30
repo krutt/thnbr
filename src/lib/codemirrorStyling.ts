@@ -3,7 +3,7 @@ import { HighlightStyle, LanguageSupport, syntaxHighlighting } from '@codemirror
 import { StateEffect, StateField } from '@codemirror/state'
 import { EditorView, ViewPlugin } from '@codemirror/view'
 import { tags as t } from '@lezer/highlight'
-import { pythonBuiltin } from './pythonBuiltin'
+import { pythonBuiltin } from '@/lib/pythonBuiltin'
 
 const isDark = () => document.documentElement.classList.contains('dark')
 

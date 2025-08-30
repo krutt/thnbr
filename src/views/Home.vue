@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import Repl from '@/components/Repl.vue'
+/* components */
+import Cell from '@/components/Cell.vue'
 
 const address: Ref<string> = ref('')
 const alby = useAlby()
@@ -15,6 +16,6 @@ onMounted(async () => {
     <div>
       {{ address }}
     </div>
-    <Repl />
+    <Cell></Cell>
   </main>
 </template>

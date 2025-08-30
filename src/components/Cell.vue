@@ -12,7 +12,7 @@ import {
 import Loading from '@/assets/loading.svg'
 import Ready from '@/assets/ready.svg'
 import Running from '@/assets/running.svg'
-import { styling } from '@/components/codemirror-styling'
+import { styling } from '@/lib/codemirrorStyling'
 
 let worker
 let inputData
